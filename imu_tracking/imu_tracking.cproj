@@ -247,6 +247,18 @@
     <Compile Include="src\ASF\common\services\clock\mega\sysclk.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\bmi160.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\bmi160.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\spi.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\uart.c">
       <SubType>compile</SubType>
     </Compile>
