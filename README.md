@@ -8,4 +8,4 @@ This repo contains the hardware code to use IMU devices to support 3D device tra
 
 ![Bosch BMI160 Datasheet](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf)
  
-![Video 1](https://www.youtube.com/watch?v=fMydtfl-YNI) and ![Video 2](https://www.youtube.com/watch?v=KMhbV1p3MWk) and ![Video 3](https://www.youtube.com/watch?v=6HxuGmd24u4)
+![Video 1](https://www.youtube.com/watch?v=fMydtfl-YNI) and ![Video 2](https://www.youtube.com/watch?v=KMhbV1p3MWk) and ![Video 3](https://www.youtube.com/watch?v=6HxuGmd24u4) and ![Video 4](https://www.youtube.com/watch?v=dGFqHHi2bcI)
