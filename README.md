@@ -15,3 +15,5 @@ This repo contains the hardware code to use IMU devices to support 3D device tra
 [Paper on Kalman Filter and IMU](https://core.ac.uk/download/pdf/18293757.pdf)
 
 [Video on complementary filter](https://www.youtube.com/watch?v=whSw42XddsU)
+
+[Useful Stanford course materials](http://stanford.edu/class/ee267/)
