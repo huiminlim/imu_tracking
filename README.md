@@ -13,3 +13,5 @@ This repo contains the hardware code to use IMU devices to support 3D device tra
 [Tutorial on Kalman Filter](http://blog.tkjelectronics.dk/2012/09/a-practical-approach-to-kalman-filter-and-how-to-implement-it/) and [Integration with IMU](https://www.instructables.com/Guide-to-gyro-and-accelerometer-with-Arduino-inclu/)
 
 [Paper on Kalman Filter and IMU](https://core.ac.uk/download/pdf/18293757.pdf)
+
+[Video on complementary filter](https://www.youtube.com/watch?v=whSw42XddsU)
