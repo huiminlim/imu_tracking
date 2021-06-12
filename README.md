@@ -19,3 +19,5 @@ This repo contains the hardware code to use IMU devices to support 3D device tra
 [Video on complementary filter](https://www.youtube.com/watch?v=whSw42XddsU)
 
 [Useful Stanford course materials](http://stanford.edu/class/ee267/)
+
+[Theory behind Sensor Fusion](http://philsal.co.uk/projects/imu-attitude-estimation) and [video demo](https://www.youtube.com/watch?v=euytlGa4WFw)
