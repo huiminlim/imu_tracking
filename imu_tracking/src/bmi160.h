@@ -150,7 +150,11 @@ typedef enum {
 } BMI160AccelRange;
 
 
+// Initialization functions
 uint8_t bmi160_init(void);
+uint8_t bmi160_check_connection(void);
+
+// Utility functions
 void set_gyro_range(uint16_t range) ;
 void set_full_scale_gyro_range(uint8_t range) ;
 void set_full_scale_accel_range(uint8_t range);

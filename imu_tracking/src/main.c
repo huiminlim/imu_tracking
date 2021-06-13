@@ -17,14 +17,17 @@ int main (void) {
 
     // Initialize SPI and BMI160 sensor
     spi_init();
-    int ret = bmi160_init();
+    bmi160_init();
 
-    if (ret == BMI160_CHIP_ID) {
-        uint8_t sensorID = reg_read(BMI160_RA_CHIP_ID);
-        printf("BMI160 id: 0x%x\r\n", sensorID);
+    if (bmi160_check_connection()) {
+        printf("BMI160 connected\r\n\r\n");
     }
     else {
-        printf("BMI160 init failed\r\n");
+        printf("BMI160 connection failed\r\n\r\n");
+
+        while (1) {
+            delay_ms(20000);
+        }
     }
 
     while (1) {

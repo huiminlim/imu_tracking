@@ -58,6 +58,12 @@ uint8_t bmi160_init(void) {
     return reg_read(BMI160_RA_CHIP_ID);
 }
 
+/** Check if SPI connection to BMI160 works.
+*/
+uint8_t bmi160_check_connection(void) {
+    return (reg_read(BMI160_RA_CHIP_ID) == BMI160_CHIP_ID);
+}
+
 /** Set full-scale gyroscope range.
     @param range New full-scale gyroscope range value
 */
