@@ -310,14 +310,14 @@ uint8_t reg_read_bits(uint8_t reg, uint8_t pos, uint8_t len) {
 */
 uint8_t read8(uint8_t reg) {
     // SS set to low - select slave
-    ioport_set_pin_low(SPI_GYRO_SS);
+    ioport_set_pin_low(SPI_HARDWARE_SS);
 
     // read, bit 7 set to 1
     spixfer(reg | (1 << BMI160_SPI_READ_BIT));
     uint8_t value = spixfer(0);
 
     // SS set to high - de-select slave
-    ioport_set_pin_high(SPI_GYRO_SS);
+    ioport_set_pin_high(SPI_HARDWARE_SS);
 
     return value;
 }
@@ -329,14 +329,14 @@ uint8_t read8(uint8_t reg) {
 */
 void write8 (uint8_t reg, uint8_t value) {
     // SS set to low - select slave
-    ioport_set_pin_low(SPI_GYRO_SS);
+    ioport_set_pin_low(SPI_HARDWARE_SS);
 
     // read, bit 7 set to 0
     spixfer(reg);
     spixfer(value);
 
     // SS set to high - de-select slave
-    ioport_set_pin_high(SPI_GYRO_SS);
+    ioport_set_pin_high(SPI_HARDWARE_SS);
 }
 
 
