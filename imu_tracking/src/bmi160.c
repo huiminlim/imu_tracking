@@ -45,10 +45,10 @@ uint8_t bmi160_init(void) {
         delay_ms(10);
     }
 
-    set_full_scale_gyro_range(BMI160_GYRO_RANGE_250);
-    set_full_scale_accel_range(BMI160_ACCEL_RANGE_2G);
+    bmi160_set_full_scale_gyro_range(BMI160_GYRO_RANGE_250);
+    bmi160_set_full_scale_accel_range(BMI160_ACCEL_RANGE_2G);
 
-    set_gyro_range(250);
+    bmi160_set_gyro_range(250);
 
     /* Only PIN1 interrupts currently supported - map all interrupts to PIN1 */
     reg_write(BMI160_RA_INT_MAP_0, 0xFF);
@@ -67,7 +67,7 @@ uint8_t bmi160_check_connection(void) {
 /** Set full-scale gyroscope range.
     @param range New full-scale gyroscope range value
 */
-void set_full_scale_gyro_range(uint8_t range) {
+void bmi160_set_full_scale_gyro_range(uint8_t range) {
     reg_write_bits(BMI160_RA_GYRO_RANGE, range,
                    BMI160_GYRO_RANGE_SEL_BIT,
                    BMI160_GYRO_RANGE_SEL_LEN);
@@ -76,7 +76,7 @@ void set_full_scale_gyro_range(uint8_t range) {
 /** Set full-scale accelerometer range.
     @param range New full-scale accelerometer range setting
 */
-void set_full_scale_accel_range(uint8_t range) {
+void bmi160_set_full_scale_accel_range(uint8_t range) {
     reg_write_bits(BMI160_RA_ACCEL_RANGE, range,
                    BMI160_ACCEL_RANGE_SEL_BIT,
                    BMI160_ACCEL_RANGE_SEL_LEN);
@@ -84,7 +84,7 @@ void set_full_scale_accel_range(uint8_t range) {
 
 /** Sets the gyroscope range of the BMI160
 */
-void set_gyro_range(uint16_t range) {
+void bmi160_set_gyro_range(uint16_t range) {
     uint8_t bmi_range;
 
     if (range >= 2000) {
@@ -103,7 +103,7 @@ void set_gyro_range(uint16_t range) {
         bmi_range = BMI160_GYRO_RANGE_125;
     }
 
-    set_full_scale_gyro_range(bmi_range);
+    bmi160_set_full_scale_gyro_range(bmi_range);
 }
 
 /** Read the gyroscope value
@@ -111,10 +111,10 @@ void set_gyro_range(uint16_t range) {
 	@param y pointer reference value of memory location to store y gyroscope value
 	@param z pointer reference value of memory location to store z gyroscope value
 */
-void read_gyro(int16_t *x, int16_t *y, int16_t *z) {
+void bmi160_read_gyroscope(int16_t *x, int16_t *y, int16_t *z) {
     int16_t sx = 0, sy = 0, sz = 0;
 
-    get_rotation(&sx, &sy, &sz);
+    bmi160_get_rotation(&sx, &sy, &sz);
 
     *x = (int16_t) sx;
     *y = (int16_t) sy;
@@ -143,7 +143,7 @@ void read_gyro(int16_t *x, int16_t *y, int16_t *z) {
     @param y 16-bit signed integer container for Y-axis rotation
     @param z 16-bit signed integer container for Z-axis rotation
 */
-void get_rotation(int16_t *x, int16_t *y, int16_t *z) {
+void bmi160_get_rotation(int16_t *x, int16_t *y, int16_t *z) {
     uint8_t buffer[6];
 
     // Send address to read from and read first byte
@@ -164,10 +164,10 @@ void get_rotation(int16_t *x, int16_t *y, int16_t *z) {
 	@param y pointer reference value of memory location to store y accelerometer value
 	@param z pointer reference value of memory location to store z accelerometer value
 */
-void read_accelerometer(int16_t *x, int16_t *y, int16_t *z) {
+void bmi160_read_accelerometer(int16_t *x, int16_t *y, int16_t *z) {
     int16_t sx, sy, sz;
 
-    get_acceleration(&sx, &sy, &sz);
+    bmi160_get_acceleration(&sx, &sy, &sz);
 
     *x = (int16_t) sx;
     *y = (int16_t) sy;
@@ -194,7 +194,7 @@ void read_accelerometer(int16_t *x, int16_t *y, int16_t *z) {
     @param y 16-bit signed integer container for Y-axis acceleration
     @param z 16-bit signed integer container for Z-axis acceleration
 */
-void get_acceleration(int16_t *x, int16_t *y, int16_t *z) {
+void bmi160_get_acceleration(int16_t *x, int16_t *y, int16_t *z) {
     uint8_t buffer[6];
 
     // Send address to read from and read first byte

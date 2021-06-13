@@ -31,12 +31,12 @@ int main (void) {
     }
 
     while (1) {
-        read_accelerometer(&ax, &ay, &az);
+        bmi160_read_accelerometer(&ax, &ay, &az);
         printf("ax: %d ", ax);
         printf("ay: %d ", ay);
         printf("az: %d\r\n", az);
 
-        read_gyro(&gx, &gy, &gz);
+        bmi160_read_gyroscope(&gx, &gy, &gz);
         printf("gx: %d ", gx);
         printf("gy: %d ", gy);
         printf("gz: %d\r\n", gz);

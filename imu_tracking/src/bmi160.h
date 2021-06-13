@@ -155,13 +155,13 @@ uint8_t bmi160_init(void);
 uint8_t bmi160_check_connection(void);
 
 // Utility functions
-void set_gyro_range(uint16_t range) ;
-void set_full_scale_gyro_range(uint8_t range) ;
-void set_full_scale_accel_range(uint8_t range);
-void read_gyro(int16_t *x, int16_t *y, int16_t *z) ;
-void get_rotation(int16_t *x, int16_t *y, int16_t *z);
-void read_accelerometer(int16_t *x, int16_t *y, int16_t *z);
-void get_acceleration(int16_t *x, int16_t *y, int16_t *z);
+void bmi160_set_gyro_range(uint16_t range) ;
+void bmi160_set_full_scale_gyro_range(uint8_t range) ;
+void bmi160_set_full_scale_accel_range(uint8_t range);
+void bmi160_read_gyroscope(int16_t *x, int16_t *y, int16_t *z) ;
+void bmi160_get_rotation(int16_t *x, int16_t *y, int16_t *z);
+void bmi160_read_accelerometer(int16_t *x, int16_t *y, int16_t *z);
+void bmi160_get_acceleration(int16_t *x, int16_t *y, int16_t *z);
 
 // Helper functions
 uint8_t reg_read (uint8_t reg);
