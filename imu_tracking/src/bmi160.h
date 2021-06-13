@@ -158,6 +158,8 @@ void read_gyro(int16_t *x, int16_t *y, int16_t *z) ;
 void get_rotation(int16_t *x, int16_t *y, int16_t *z);
 void read_accelerometer(int16_t *x, int16_t *y, int16_t *z);
 void get_acceleration(int16_t *x, int16_t *y, int16_t *z);
+
+// Helper functions
 uint8_t reg_read (uint8_t reg);
 void reg_write(uint8_t reg, uint8_t data);
 void reg_write_bits(uint8_t reg, uint8_t data, uint8_t pos, uint8_t len) ;
