@@ -212,7 +212,7 @@ void bmi160_autoCalibrateXAccelOffset(int8_t target) {
     while (!(reg_read_bits(BMI160_RA_STATUS,
                            BMI160_STATUS_FOC_RDY,
                            1))) {
-        delay_ms(500);
+        delay_ms(1);
     }
 }
 
@@ -252,7 +252,7 @@ void bmi160_autoCalibrateYAccelOffset(int8_t target) {
     while (!(reg_read_bits(BMI160_RA_STATUS,
                            BMI160_STATUS_FOC_RDY,
                            1))) {
-        delay_ms(500);
+        delay_ms(1);
     }
 }
 
@@ -293,7 +293,7 @@ void bmi160_autoCalibrateZAccelOffset(int8_t target) {
     while (!(reg_read_bits(BMI160_RA_STATUS,
                            BMI160_STATUS_FOC_RDY,
                            1))) {
-        delay_ms(500);
+        delay_ms(1);
     }
 }
 
@@ -324,8 +324,6 @@ int8_t bmi160_getZAccelOffset() {
     return reg_read(BMI160_RA_OFFSET_2);
 }
 
-
-
 /** Execute internal calibration to generate Gyro offset values.
     This populates the Gyro offset compensation values for all 3 axes.
     These can be retrieved using the get[X/Y/Z]GyroOffset() methods.
@@ -346,6 +344,13 @@ void bmi160_autoCalibrateGyroOffset(void) {
     }
 }
 
+/** Set gyroscope offset compensation enabled value.
+*/
+void bmi160_setGyroOffsetEnabled(uint8_t enabled) {
+    reg_write_bits(BMI160_RA_OFFSET_6, enabled ? 0x1 : 0,
+                   BMI160_GYR_OFFSET_EN,
+                   1) ;
+}
 
 /** Read the gyroscope value
 	@param x pointer reference value of memory location to store x gyroscope value

@@ -185,6 +185,7 @@ int8_t bmi160_getXAccelOffset(void);
 int8_t bmi160_getYAccelOffset(void);
 int8_t bmi160_getZAccelOffset(void);
 void bmi160_autoCalibrateGyroOffset(void) ;
+void bmi160_setGyroOffsetEnabled(uint8_t enabled);
 void bmi160_read_gyroscope(int16_t *x, int16_t *y, int16_t *z) ;
 void bmi160_get_rotation(int16_t *x, int16_t *y, int16_t *z);
 void bmi160_read_accelerometer(int16_t *x, int16_t *y, int16_t *z);

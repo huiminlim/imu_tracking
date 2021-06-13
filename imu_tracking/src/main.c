@@ -40,7 +40,9 @@ int main (void) {
     // Auto handle offsets
     bmi160_autoCalibrateXAccelOffset(0);
     bmi160_autoCalibrateYAccelOffset(0);
+    bmi160_setAccelOffsetEnabled(1);
     bmi160_autoCalibrateGyroOffset();
+    bmi160_setGyroOffsetEnabled(1);
 
     while (1) {
         bmi160_read_accelerometer(&ax_raw, &ay_raw, &az_raw);
@@ -54,6 +56,6 @@ int main (void) {
         printf("gz: %d\r\n", gz_raw);
 
         printf("\r\n");
-        delay_ms(500);
+        delay_ms(1500);
     }
 }
