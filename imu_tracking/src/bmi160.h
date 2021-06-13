@@ -36,6 +36,13 @@
 #define BMI160_RA_ACCEL_Z_L         0x16
 #define BMI160_RA_ACCEL_Z_H         0x17
 
+#define BMI160_STATUS_FOC_RDY       3
+#define BMI160_STATUS_NVM_RDY       4
+#define BMI160_STATUS_DRDY_GYR      6
+#define BMI160_STATUS_DRDY_ACC      7
+
+#define BMI160_RA_STATUS            0x1B
+
 #define BMI160_RA_TEMP_L            0x20
 #define BMI160_RA_TEMP_H            0x21
 
@@ -55,6 +62,16 @@
 #define BMI160_RA_INT_MAP_0         0x55
 #define BMI160_RA_INT_MAP_1         0x56
 #define BMI160_RA_INT_MAP_2         0x57
+
+#define BMI160_RA_FOC_CONF          0x69
+
+#define BMI160_FOC_ACC_Z_BIT        0
+#define BMI160_FOC_ACC_Z_LEN        2
+#define BMI160_FOC_ACC_Y_BIT        2
+#define BMI160_FOC_ACC_Y_LEN        2
+#define BMI160_FOC_ACC_X_BIT        4
+#define BMI160_FOC_ACC_X_LEN        2
+#define BMI160_FOC_GYR_EN           6
 
 #define BMI160_GYR_OFFSET_X_MSB_BIT 0
 #define BMI160_GYR_OFFSET_X_MSB_LEN 2
@@ -160,6 +177,14 @@ uint16_t bmi160_get_full_scale_gyro_range(void);
 void bmi160_set_gyro_range(uint16_t range) ;
 void bmi160_set_full_scale_gyro_range(uint8_t range) ;
 void bmi160_set_full_scale_accel_range(uint8_t range);
+void bmi160_setAccelOffsetEnabled(uint8_t enabled_flag);
+void bmi160_autoCalibrateXAccelOffset(int8_t target);
+void bmi160_autoCalibrateYAccelOffset(int8_t target);
+void bmi160_autoCalibrateZAccelOffset(int8_t target);
+int8_t bmi160_getXAccelOffset(void);
+int8_t bmi160_getYAccelOffset(void);
+int8_t bmi160_getZAccelOffset(void);
+void bmi160_autoCalibrateGyroOffset(void) ;
 void bmi160_read_gyroscope(int16_t *x, int16_t *y, int16_t *z) ;
 void bmi160_get_rotation(int16_t *x, int16_t *y, int16_t *z);
 void bmi160_read_accelerometer(int16_t *x, int16_t *y, int16_t *z);

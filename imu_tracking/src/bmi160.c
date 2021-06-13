@@ -168,6 +168,185 @@ void bmi160_set_gyro_range(uint16_t range) {
     bmi160_set_full_scale_gyro_range(bmi_range);
 }
 
+
+void bmi160_setAccelOffsetEnabled(uint8_t enabled_flag) {
+    reg_write_bits(BMI160_RA_OFFSET_6, enabled_flag ? 0x1 : 0,
+                   BMI160_ACC_OFFSET_EN,
+                   1);
+}
+
+
+/** Execute internal calibration to generate Accelerometer X-Axis offset value.
+    This populates the Accelerometer offset compensation value for the X-Axis only.
+    These can be retrieved using the getXAccelOffset() methods.
+    Note that this procedure may take up to 250ms to complete.
+
+    IMPORTANT: The user MUST ensure NO movement and correct orientation of the
+    BMI160 device occurs while this auto-calibration process is active.
+    For example, to calibrate to a target of 0g on the X-axis, the BMI160 device
+    must be resting horizontally as shown in Section 5.2 of the BMI160 Data Sheet.
+
+    To enable offset compensation, @see setAccelOffsetEnabled()
+
+    @param target X-axis target value (0 = 0g, 1 = +1g, -1 = -1g)
+*/
+void bmi160_autoCalibrateXAccelOffset(int8_t target) {
+    uint8_t foc_conf;
+
+    if (target == 1) {
+        foc_conf = (0x1 << BMI160_FOC_ACC_X_BIT);
+    }
+    else if (target == -1) {
+        foc_conf = (0x2 << BMI160_FOC_ACC_X_BIT);
+    }
+    else if (target == 0) {
+        foc_conf = (0x3 << BMI160_FOC_ACC_X_BIT);
+    }
+    else {
+        return;    /* Invalid target value */
+    }
+
+    reg_write(BMI160_RA_FOC_CONF, foc_conf);
+    reg_write(BMI160_RA_CMD, BMI160_CMD_START_FOC);
+
+    while (!(reg_read_bits(BMI160_RA_STATUS,
+                           BMI160_STATUS_FOC_RDY,
+                           1))) {
+        delay_ms(500);
+    }
+}
+
+/** Execute internal calibration to generate Accelerometer Y-Axis offset value.
+    This populates the Accelerometer offset compensation value for the Y-Axis only.
+    These can be retrieved using the getYAccelOffset() methods.
+    Note that this procedure may take up to 250ms to complete.
+
+    IMPORTANT: The user MUST ensure NO movement and correct orientation of the
+    BMI160 device occurs while this auto-calibration process is active.
+    For example, to calibrate to a target of 0g on the Y-axis, the BMI160 device
+    must be resting horizontally as shown in Section 5.2 of the BMI160 Data Sheet.
+
+    To enable offset compensation, @see setAccelOffsetEnabled()
+
+    @param target Y-axis target value (0 = 0g, 1 = +1g, -1 = -1g)
+*/
+void bmi160_autoCalibrateYAccelOffset(int8_t target) {
+    uint8_t foc_conf;
+
+    if (target == 1) {
+        foc_conf = (0x1 << BMI160_FOC_ACC_Y_BIT);
+    }
+    else if (target == -1) {
+        foc_conf = (0x2 << BMI160_FOC_ACC_Y_BIT);
+    }
+    else if (target == 0) {
+        foc_conf = (0x3 << BMI160_FOC_ACC_Y_BIT);
+    }
+    else {
+        return;    /* Invalid target value */
+    }
+
+    reg_write(BMI160_RA_FOC_CONF, foc_conf);
+    reg_write(BMI160_RA_CMD, BMI160_CMD_START_FOC);
+
+    while (!(reg_read_bits(BMI160_RA_STATUS,
+                           BMI160_STATUS_FOC_RDY,
+                           1))) {
+        delay_ms(500);
+    }
+}
+
+
+/** Execute internal calibration to generate Accelerometer Z-Axis offset value.
+    This populates the Accelerometer offset compensation value for the Z-Axis only.
+    These can be retrieved using the getZAccelOffset() methods.
+    Note that this procedure may take up to 250ms to complete.
+
+    IMPORTANT: The user MUST ensure NO movement and correct orientation of the
+    BMI160 device occurs while this auto-calibration process is active.
+    For example, to calibrate to a target of +1g on the Z-axis, the BMI160 device
+    must be resting horizontally as shown in Section 5.2 of the BMI160 Data Sheet.
+
+    To enable offset compensation, @see setAccelOffsetEnabled()
+
+    @param target Z-axis target value (0 = 0g, 1 = +1g, -1 = -1g)
+*/
+void bmi160_autoCalibrateZAccelOffset(int8_t target) {
+    uint8_t foc_conf;
+
+    if (target == 1) {
+        foc_conf = (0x1 << BMI160_FOC_ACC_Z_BIT);
+    }
+    else if (target == -1) {
+        foc_conf = (0x2 << BMI160_FOC_ACC_Z_BIT);
+    }
+    else if (target == 0) {
+        foc_conf = (0x3 << BMI160_FOC_ACC_Z_BIT);
+    }
+    else {
+        return;    /* Invalid target value */
+    }
+
+    reg_write(BMI160_RA_FOC_CONF, foc_conf);
+    reg_write(BMI160_RA_CMD, BMI160_CMD_START_FOC);
+
+    while (!(reg_read_bits(BMI160_RA_STATUS,
+                           BMI160_STATUS_FOC_RDY,
+                           1))) {
+        delay_ms(500);
+    }
+}
+
+
+/** Get offset compensation value for accelerometer X-axis data.
+    The value is represented as an 8-bit two-complement number in
+    units of 3.9mg per LSB.
+    @see BMI160_RA_OFFSET_0
+*/
+int8_t bmi160_getXAccelOffset(void) {
+    return reg_read(BMI160_RA_OFFSET_0);
+}
+
+/** Get offset compensation value for accelerometer Y-axis data.
+    The value is represented as an 8-bit two-complement number in
+    units of 3.9mg per LSB.
+*/
+int8_t bmi160_getYAccelOffset() {
+    return reg_read(BMI160_RA_OFFSET_1);
+}
+
+
+/** Get offset compensation value for accelerometer Z-axis data.
+    The value is represented as an 8-bit two-complement number in
+    units of 3.9mg per LSB.
+*/
+int8_t bmi160_getZAccelOffset() {
+    return reg_read(BMI160_RA_OFFSET_2);
+}
+
+
+
+/** Execute internal calibration to generate Gyro offset values.
+    This populates the Gyro offset compensation values for all 3 axes.
+    These can be retrieved using the get[X/Y/Z]GyroOffset() methods.
+    Note that this procedure may take up to 250ms to complete.
+
+    IMPORTANT: The user MUST ensure that NO rotation of the BMI160 device
+    occurs while this auto-calibration process is active.
+*/
+void bmi160_autoCalibrateGyroOffset(void) {
+    uint8_t foc_conf = (1 << BMI160_FOC_GYR_EN);
+    reg_write(BMI160_RA_FOC_CONF, foc_conf);
+    reg_write(BMI160_RA_CMD, BMI160_CMD_START_FOC);
+
+    while (!(reg_read_bits(BMI160_RA_STATUS,
+                           BMI160_STATUS_FOC_RDY,
+                           1))) {
+        delay_ms(1);
+    }
+}
+
+
 /** Read the gyroscope value
 	@param x pointer reference value of memory location to store x gyroscope value
 	@param y pointer reference value of memory location to store y gyroscope value
