@@ -30,6 +30,15 @@ int main (void) {
         }
     }
 
+    // Set scale for gyroscope and accelerometer
+    bmi160_set_full_scale_gyro_range(BMI160_GYRO_RANGE_250);
+    bmi160_set_full_scale_accel_range(BMI160_ACCEL_RANGE_2G);
+    printf("Gyroscope range: %d deg/s\r\n", bmi160_get_full_scale_gyro_range());
+    printf("Accelerometer range: %d g\r\n", bmi160_get_full_scale_accel_range());
+    printf("\r\n");
+
+    // TODO: Offsets - how to handle?
+
     while (1) {
         bmi160_read_accelerometer(&ax_raw, &ay_raw, &az_raw);
         printf("(raw) ");

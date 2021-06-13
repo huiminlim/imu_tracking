@@ -48,8 +48,6 @@ uint8_t bmi160_init(void) {
     bmi160_set_full_scale_gyro_range(BMI160_GYRO_RANGE_250);
     bmi160_set_full_scale_accel_range(BMI160_ACCEL_RANGE_2G);
 
-    bmi160_set_gyro_range(250);
-
     /* Only PIN1 interrupts currently supported - map all interrupts to PIN1 */
     reg_write(BMI160_RA_INT_MAP_0, 0xFF);
     reg_write(BMI160_RA_INT_MAP_1, 0xF0);
@@ -80,6 +78,70 @@ void bmi160_set_full_scale_accel_range(uint8_t range) {
     reg_write_bits(BMI160_RA_ACCEL_RANGE, range,
                    BMI160_ACCEL_RANGE_SEL_BIT,
                    BMI160_ACCEL_RANGE_SEL_LEN);
+}
+
+/** Get full-scale gyroscope range.
+    The gyr_range parameter allows setting the full-scale range of the gyro sensors,
+    as described in the table below.
+
+    4 = +/-  125 degrees/sec
+    3 = +/-  250 degrees/sec
+    2 = +/-  500 degrees/sec
+    1 = +/- 1000 degrees/sec
+    0 = +/- 2000 degrees/sec
+
+    @return Current full-scale gyroscope range setting
+*/
+uint16_t bmi160_get_full_scale_gyro_range() {
+    uint8_t ret = reg_read_bits(BMI160_RA_GYRO_RANGE,
+                                BMI160_GYRO_RANGE_SEL_BIT,
+                                BMI160_GYRO_RANGE_SEL_LEN);
+
+    if (ret == 4) {
+        return 125;
+    }
+    else if (ret == 3) {
+        return 250;
+    }
+    else if (ret == 2) {
+        return 500;
+    }
+    else if (ret == 1) {
+        return 1000;
+    }
+    else {
+        return 2000;
+    }
+}
+
+/** Get full-scale accelerometer range.
+    The FS_SEL parameter allows setting the full-scale range of the accelerometer
+    sensors, as described in the table below.
+
+    3 = +/- 2g
+    5 = +/- 4g
+    8 = +/- 8g
+    12 = +/- 16g
+
+    @return Current full-scale accelerometer range setting
+*/
+uint8_t bmi160_get_full_scale_accel_range(void) {
+    uint8_t ret =  reg_read_bits(BMI160_RA_ACCEL_RANGE,
+                                 BMI160_ACCEL_RANGE_SEL_BIT,
+                                 BMI160_ACCEL_RANGE_SEL_LEN);
+
+    if (ret == 3) {
+        return 2;
+    }
+    else if (ret == 5) {
+        return 4;
+    }
+    else if (ret == 8) {
+        return 8;
+    }
+    else {
+        return 16;
+    }
 }
 
 /** Sets the gyroscope range of the BMI160

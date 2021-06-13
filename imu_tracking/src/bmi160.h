@@ -155,6 +155,8 @@ uint8_t bmi160_init(void);
 uint8_t bmi160_check_connection(void);
 
 // Utility functions
+uint8_t bmi160_get_full_scale_accel_range(void);
+uint16_t bmi160_get_full_scale_gyro_range(void);
 void bmi160_set_gyro_range(uint16_t range) ;
 void bmi160_set_full_scale_gyro_range(uint8_t range) ;
 void bmi160_set_full_scale_accel_range(uint8_t range);
